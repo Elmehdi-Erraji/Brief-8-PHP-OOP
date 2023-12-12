@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
-    $email = $_POST['email']; // Assuming the input field is named 'email'
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     $user = $userRepository->authenticateUser($email, $password);
@@ -82,18 +82,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
         session_start();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['role_id'] = $user['role_id']; // Store the user's role ID in session
-        
+        $_SESSION['role_id'] = $user['role_id'];
+
         // Redirect based on user role
-        if ($user['role_id'] === 1) { // Replace 1 with the appropriate admin role ID
+        if ($user['role_id'] === 1) {
             header("Location: ../../index.php");
             exit();
         } else {
-            header("Location: ../../index.php");
+            header("Location: ../../user_dashboard.php");
             exit();
         }
     } else {
+        // Provide more specific error messages
         echo "Invalid email or password";
+        exit();
+    }
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['signup'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm_password'];
+    // Set the default role to 3
+    $defaultRoleId = 3;
+
+    if ($password !== $confirmPassword) {
+        echo "Passwords do not match.";
+        exit();
+    }
+
+    $created = $userRepository->createUser($username, $email, $password);
+
+    if ($created) {
+        $newUserId = mysqli_insert_id($connection);
+        // Link the default role (role_id = 3) to the newly created user
+        $linkedRole = $userRepository->linkUserRole($defaultRoleId, $newUserId);
+
+        if ($linkedRole) {
+            header("Location: /Brief-8-PHP-OOP/index.php");
+            exit();
+        } else {
+            echo "Failed to link user with role.";
+            exit();
+        }
+    } else {
+        echo "Failed to create user.";
         exit();
     }
 }

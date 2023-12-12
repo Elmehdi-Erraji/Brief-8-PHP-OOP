@@ -41,26 +41,26 @@
                                             account.</p>
 
                                         <!-- form -->
-                                        <form action="#">
+                                        <form action="../controllers/users/user.controller.php" method="post">
                                             <div class="mb-3">
                                                 <label for="fullname" class="form-label">Username</label>
-                                                <input class="form-control" type="text" id="fullname" placeholder="Enter your name" required="">
+                                                <input class="form-control" type="text" name="username" id="fullname" placeholder="Enter your name" required="">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="emailaddress" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                                <input class="form-control" type="email" name="email"  id="emailaddress" required="" placeholder="Enter your email">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
+                                                <input class="form-control" type="password"  name="password" required="" id="password" placeholder="Enter your password">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password Confirmation</label>
-                                                <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
+                                                <input class="form-control" type="password" name="confirm_password" required="" id="password" placeholder="Enter your password">
                                             </div>
 
                                             <div class="mb-0 d-grid text-center">
-                                                <button class="btn btn-primary fw-semibold" type="submit">Sign Up</button>          
+                                                <button class="btn btn-primary fw-semibold" type="submit" name="signup">Sign Up</button>          
                                             </div>
 
                                             <div class="text-center mt-4">
