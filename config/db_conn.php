@@ -30,11 +30,11 @@ class DBConnection {
 }
 
 // Usage
-$dbConnection = new DBConnection();
-$connection = $dbConnection->getConnection();
+// $dbConnection = new DBConnection();
+// $connection = $dbConnection->getConnection();
 
-if(!$dbConnection){
-    echo "Db is not connected";
-}
+// if(!$dbConnection){
+//     echo "Db is not connected";
+// }
 
 // Use $connection for database operations
