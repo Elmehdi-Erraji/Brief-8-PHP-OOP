@@ -1,34 +1,26 @@
 <?php
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..'); // Adjust the path to the directory containing .env file
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 
-try {
-    $dotenv->load();
-} catch (\Dotenv\Exception\InvalidPathException $e) {
-    die("Error loading .env file: " . $e->getMessage());
-}
-
+$dotenv->load();
 
 class DBConnection {
     protected $connection;
 
     public function __construct() {
-        try {
-            $dbHost = $_ENV['DB_HOST'];
-            $dbUser = $_ENV['DB_USER'];
-            $dbPassword = $_ENV['DB_PASSWORD'];
-            $dbName = $_ENV['DB_NAME'];
+        $dbHost = $_ENV['DB_HOST'];
+        $dbUser = $_ENV['DB_USER'];
+        $dbPassword = $_ENV['DB_PASSWORD'];
+        $dbName = $_ENV['DB_NAME'];
 
-            $this->connection = mysqli_connect($dbHost, $dbUser, $dbPassword, $dbName);
+        $this->connection = mysqli_connect($dbHost, $dbUser, $dbPassword, $dbName);
 
-            if (!$this->connection) {
-                throw new Exception("Connection failed: " . mysqli_connect_error());
-            }
-        } catch (Exception $e) {
-            die($e->getMessage());
+        if (!$this->connection) {
+            die("Connection failed: " . mysqli_connect_error());
         }
     }
 
@@ -36,3 +28,13 @@ class DBConnection {
         return $this->connection;
     }
 }
+
+// Usage
+$dbConnection = new DBConnection();
+$connection = $dbConnection->getConnection();
+
+if(!$dbConnection){
+    echo "Db is not connected";
+}
+
+// Use $connection for database operations
