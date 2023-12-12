@@ -1,20 +1,21 @@
 <?php
-require_once 'models/user.model.php';
+require_once 'models/userMethods.php';
 require_once 'config/db_conn.php';
 
 // Establish a database connection
 $dbConnection = new DBConnection();
-$db = $dbConnection->getConnection();
+$connection = $dbConnection->getConnection();
 
-// Create an instance of the User class
-$userModel = new User($db);
+// Create an instance of the UserRepository class
+$userRepository = new UserRepository($connection);
 
 // Retrieve users from the database
-$users = $userModel->getUsers();
+$users = $userRepository->getUsers();
 
 // Get the count of users
-$userCount = $userModel->getUserCount();
+$userCount = $userRepository->getUserCount();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,14 +1,14 @@
 
 <?php
-require_once '../models/user.model.php';
-require_once '../config/db_conn.php';
+include '../models/userMethods.php';
+include '../config/db_conn.php';
 
 // Establish a database connection
 $dbConnection = new DBConnection();
 $db = $dbConnection->getConnection();
 
 // Create an instance of the User class
-$userModel = new User($db);
+$userModel = new UserRepository($db);
 
 // Retrieve users from the database
 $users = $userModel->getUsers();

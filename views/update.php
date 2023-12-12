@@ -1,12 +1,12 @@
 
 <?php
-require_once '../models/user.model.php';
+require_once '../models/userMethods.php';
 require_once '../config/db_conn.php';
 
 $dbConnection = new DBConnection();
 $connection = $dbConnection->getConnection();
 
-$userModel = new User($connection);
+$userModel = new UserRepository($connection);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $userIdToUpdate = $_GET['id'];
