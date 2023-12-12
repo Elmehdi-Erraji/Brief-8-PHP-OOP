@@ -41,10 +41,10 @@
                                         </p>
 
                                         <!-- form -->
-                                        <form action="#">
+                                        <form action="../controllers/users/user.controller.php" method="post">
                                             <div class="mb-3">
                                                 <label for="emailaddress" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="emailaddress" required=""
+                                                <input class="form-control" type="email" name="email" id="emailaddress" required=""
                                                     placeholder="Enter your email">
                                             </div>
                                             <div class="mb-3">
@@ -52,26 +52,26 @@
                                                         your
                                                         password?</small></a>
                                                 <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" required="" id="password"
+                                                <input class="form-control" type="password" name="password" required="" id="password"
                                                     placeholder="Enter your password">
                                             </div>
                                            
                                             <div class="mb-0 text-start">
-                                                <button class="btn btn-soft-primary w-100" type="submit"><i
-                                                        class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Log
-                                                        In</span> </button>
+                                                <button class="btn btn-soft-primary w-100" type="submit" name="login"><i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Log In</span> </button>
+                                                       
+                                                       
                                             </div>
 
                                             <div class="text-center mt-4">
                                                 <p class="text-muted fs-16">Sign in with</p>
                                                 <div class="d-flex gap-2 justify-content-center mt-3">
-                                                    <a href="javascript: void(0);" class="btn btn-soft-primary"><i
+                                                    <a href="#" class="btn btn-soft-primary"><i
                                                             class="ri-facebook-circle-fill"></i></a>
-                                                    <a href="javascript: void(0);" class="btn btn-soft-danger"><i
+                                                    <a href="#" class="btn btn-soft-danger"><i
                                                             class="ri-google-fill"></i></a>
-                                                    <a href="javascript: void(0);" class="btn btn-soft-info"><i
+                                                    <a href="#" class="btn btn-soft-info"><i
                                                             class="ri-twitter-fill"></i></a>
-                                                    <a href="javascript: void(0);" class="btn btn-soft-dark"><i
+                                                    <a href="#" class="btn btn-soft-dark"><i
                                                             class="ri-github-fill"></i></a>
                                                 </div>
                                             </div>

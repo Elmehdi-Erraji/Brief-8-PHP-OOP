@@ -74,5 +74,25 @@ class UserRepository {
             return []; // Return an empty array if no roles found
         }
     }
+
+    public function authenticateUser($email, $password) {
+        $stmt = $this->connection->prepare("SELECT id, username, password, role_id FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+            $hashedPassword = $user['password'];
+
+            if (password_verify($password, $hashedPassword)) {
+                // Passwords match, return user data without password for security
+                unset($user['password']);
+                return $user;
+            }
+        }
+
+        return null; // Authentication failed
+    }
 }
 ?>

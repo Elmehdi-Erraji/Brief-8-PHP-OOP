@@ -72,6 +72,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         }
     }
 }
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
+    $email = $_POST['email']; // Assuming the input field is named 'email'
+    $password = $_POST['password'];
 
+    $user = $userRepository->authenticateUser($email, $password);
+
+    if ($user) {
+        session_start();
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role_id'] = $user['role_id']; // Store the user's role ID in session
+        
+        // Redirect based on user role
+        if ($user['role_id'] === 1) { // Replace 1 with the appropriate admin role ID
+            header("Location: ../../index.php");
+            exit();
+        } else {
+            header("Location: ../../index.php");
+            exit();
+        }
+    } else {
+        echo "Invalid email or password";
+        exit();
+    }
+}
 echo "Invalid request.";
 ?>
