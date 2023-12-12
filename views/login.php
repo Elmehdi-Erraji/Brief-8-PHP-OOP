@@ -104,7 +104,6 @@
         </span>
     </footer>
     <!-- Vendor js -->
-    <script src="../assets/assets/js/vendor.min.js"></script>
 
     <!-- App js -->
     <script src="../assets/assets/js/app.min.js"></script>
