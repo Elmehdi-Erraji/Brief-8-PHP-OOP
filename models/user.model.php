@@ -24,9 +24,9 @@ class User {
     }
 
     // Update a user
-    public function updateUser($id, $newUsername, $newEmail) {
-        $stmt = $this->connection->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $newUsername, $newEmail, $id);
+    public function updateUser($id, $newUsername, $newEmail, $role_id) {
+        $stmt = $this->connection->prepare("UPDATE users SET username = ?, email = ?, role_id = ? WHERE id = ?");
+        $stmt->bind_param("ssii", $newUsername, $newEmail, $role_id, $id);
         return $stmt->execute();
     }
 
@@ -61,7 +61,7 @@ class User {
         return []; // Return an empty array if no users found
         }
         }
-        
+
         public function linkUserRole($role_id, $user_id) {
             $stmt = $this->connection->prepare("UPDATE users SET role_id = ? WHERE id = ?");
             $stmt->bind_param("ii", $role_id, $user_id);

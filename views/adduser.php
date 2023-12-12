@@ -54,7 +54,7 @@ $roles = $userModel->getAllRoles();
         </div>
 
         <div class="container d-flex justify-content-center">
-            <form action="controllers/user.controller.php" method="post" style="width:50vw; min-width:300px;">
+            <form action="../controllers/user.controller.php" method="post" style="width:50vw; min-width:300px;">
                 <div class="row mb-3">
                     <div class="col">
                         <label class="form-label">Username</label>

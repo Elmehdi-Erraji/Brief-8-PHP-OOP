@@ -1,75 +1,79 @@
 <?php
-require_once '../models/user.model.php'; 
-include '../config/db_conn.php';
-
-
+require_once '../models/user.model.php';
+require_once '../config/db_conn.php';
 
 $dbConnection = new DBConnection();
 $connection = $dbConnection->getConnection();
-// Delete a user
+
+if (!$connection) {
+    echo "Database connection error.";
+    exit();
+}
+
+$userModel = new User($connection);
+
+// Check if a user ID is provided and delete the user
 if (isset($_GET['id'])) {
-    if ($connection) {
-        $userModel = new User($connection);
+    $userIdToDelete = $_GET['id'];
+    $deleted = $userModel->deleteUser($userIdToDelete);
 
-        $userIdToDelete = $_GET['id'];
+    if ($deleted) {
+        header("Location: /Brief-8-PHP-OOP/index.php");
+        exit();
+    } else {
+        echo "Failed to delete user.";
+        exit();
+    }
+}
 
-        $deleted = $userModel->deleteUser($userIdToDelete);
+// Check if the form is submitted for adding or updating a user
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
+    // If the user ID is provided, update the user
+    if (isset($_POST['user_id'])) {
+        $userId = $_POST['user_id'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $roleId = $_POST['role'];
 
-        if ($deleted) {
+        $updated = $userModel->updateUser($userId, $username, $email, $roleId);
+
+        if ($updated) {
             header("Location: /Brief-8-PHP-OOP/index.php");
             exit();
         } else {
-            echo "Failed to delete user.";
+            echo "Failed to update user.";
+            exit();
         }
-    } else {
-        echo "Database connection error.";
-    }
-} else {
-    echo "User ID not provided.";
-}
-
-//add user 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    if ($connection) {
-        $userModel = new User($connection);
-
-        // Get form data
+    } else { // If the user ID is not provided, create a new user
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $confirmPassword = $_POST['confirm_password'];
-        $role_id = $_POST['role']; // Assuming this comes from the form
+        $role_id = $_POST['role'];
 
-        // Check if passwords match
         if ($password !== $confirmPassword) {
             echo "Passwords do not match.";
-            exit(); // Stop execution if passwords don't match
+            exit();
         }
 
-        // Create the user
         $created = $userModel->createUser($username, $email, $password);
 
         if ($created) {
-            // Retrieve the newly created user's ID
             $newUserId = mysqli_insert_id($connection);
-
-            // Link the user with a role
             $linkedRole = $userModel->linkUserRole($role_id, $newUserId);
 
             if ($linkedRole) {
-                // Redirect to a success page or handle success message
                 header("Location: /Brief-8-PHP-OOP/index.php");
                 exit();
             } else {
                 echo "Failed to link user with role.";
+                exit();
             }
         } else {
             echo "Failed to create user.";
+            exit();
         }
-    } else {
-        echo "Database connection error.";
     }
-} else {
-    echo "Invalid request.";
 }
+
+echo "Invalid request.";
