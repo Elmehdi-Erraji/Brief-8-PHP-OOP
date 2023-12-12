@@ -1,6 +1,6 @@
 <?php
-include '../models/userMethods.php';
-include '../config/db_conn.php';
+include '../../models/users/userMethods.php';
+include '../../config/db_conn.php';
 
 $dbConnection = new DBConnection();
 $connection = $dbConnection->getConnection();

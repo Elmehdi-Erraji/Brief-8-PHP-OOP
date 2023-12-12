@@ -1,6 +1,6 @@
 
 <?php
-require_once '../models/userMethods.php';
+require_once '../models/users/userMethods.php';
 require_once '../config/db_conn.php';
 
 $dbConnection = new DBConnection();
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         </div>
 
         <div class="container d-flex justify-content-center">
-        <form action="../controllers/user.controller.php" method="post">
+        <form action="../controllers/users/user.controller.php" method="post">
                     <input type="hidden" name="user_id" value="<?= $userData['id'] ?>">
                     <div class="mb-3">
                         <label class="form-label">Username</label>

@@ -1,5 +1,5 @@
 <?php
-require_once 'models/userMethods.php';
+require_once 'models/users/userMethods.php';
 require_once 'config/db_conn.php';
 
 // Establish a database connection
@@ -130,7 +130,7 @@ $userCount = $userRepository->getUserCount();
                     <td><?= $user['role'] ?></td>
                     <td>
                         <a href='views/update.php?id=<?= $user['id'] ?>' class='link-dark'><i class='fa-solid fa-pen-to-square fs-5 me-3'></i></a>
-                        <a href='controllers/user.controller.php?id=<?= $user['id'] ?>' class='link-dark'><i class='fa-solid fa-trash fs-5'></i></a>
+                        <a href='controllers/users/user.controller.php?id=<?= $user['id'] ?>' class='link-dark'><i class='fa-solid fa-trash fs-5'></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
