@@ -91,7 +91,7 @@ $roles = $userModel->getAllRoles();
                 </div>
 
                 <div class="button-container">
-                    <button type="submit" class="btn btn-success" name="submit" style="background-color: #30B7FF; border: 2px solid black">Save</button>
+                    <button type="submit" class="btn btn-success" name="add" style="background-color: #30B7FF; border: 2px solid black">Save</button>
                     <a href="../../index.php" class="btn btn-danger" style="background-color: #30B7FF; border: 2px solid black">Cancel</a>
                 </div>
                 <br>

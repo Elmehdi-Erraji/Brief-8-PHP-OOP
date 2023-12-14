@@ -7,6 +7,16 @@ class User {
     protected $password;
     protected $role_id;
 
+
+    public function __construct($username,$email,$password,$role_id)
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->role_id = $role_id;
+
+    }
+
     public function getId() {
         return $this->id;
     }

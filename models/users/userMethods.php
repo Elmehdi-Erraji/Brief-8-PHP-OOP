@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 class UserRepository {
     protected $connection;
 
@@ -7,8 +6,11 @@ class UserRepository {
         $this->connection = $connection;
     }
 
-    public function createUser($username, $email, $password) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    public function createUser(User $user) {
+        $hashedPassword = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        $username = $user->getUsername();
+        $email = $user->getEmail();
+
         $stmt = $this->connection->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $hashedPassword);
         return $stmt->execute();
@@ -21,9 +23,14 @@ class UserRepository {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function updateUser($id, $newUsername, $newEmail, $role_id) {
+    public function updateUser(User $user) {
+        $username = $user->getUsername();
+        $email = $user->getEmail();
+        $role_id = $user->getRoleId();
+        $id = $user->getId();
+
         $stmt = $this->connection->prepare("UPDATE users SET username = ?, email = ?, role_id = ? WHERE id = ?");
-        $stmt->bind_param("ssii", $newUsername, $newEmail, $role_id, $id);
+        $stmt->bind_param("ssii", $username, $email, $role_id, $id);
         return $stmt->execute();
     }
 
@@ -95,4 +102,3 @@ class UserRepository {
         return null; // Authentication failed
     }
 }
-?>
