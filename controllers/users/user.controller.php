@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['signup'])) {
         $linkedRole = $userRepository->linkUserRole($defaultRoleId, $newUserId);
 
         if ($linkedRole) {
-            header("Location: /Brief-8-PHP-OOP/index.php");
+            header("Location: /Brief-8-PHP-OOP/views/login.php");
             exit();
         } else {
             echo "Failed to link user with role.";
